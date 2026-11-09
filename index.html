@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Баянзүрх Дүүргийн Эрүүл Мэндийн Төв - Дуугүй Хөтөч</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-xl sticky top-0 z-40 border-b-4 border-yellow-500">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center max-w-6xl">
+            <div class="flex items-center space-x-3">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-white rounded-full p-1 flex items-center justify-center shrink-0 shadow-md">
+                    <img src="logo.png" alt="БЗД ЭМТ" class="object-contain w-full h-full" onerror="this.src='https://via.placeholder.com/60?text=БЗД+ЭМТ'">
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-2xl font-black leading-tight tracking-wide" data-translate="title">Баянзүрх Дүүргийн Эрүүл Мэндийн Төв</h1>
+                    <p class="text-xs md:text-base text-blue-200 font-medium" data-translate="subtitle">Дуугүй Хөтөч & Навигатор</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 shrink-0">
+                <button onclick="toggleLanguage()" id="langBtn" class="bg-blue-800 hover:bg-blue-700 px-3 py-2 md:px-4 md:py-2 rounded-xl text-base md:text-lg font-bold border-2 border-blue-400 shadow">EN</button>
+                <button onclick="openQrModal()" class="bg-yellow-500 hover:bg-yellow-400 text-blue-950 px-3 py-2 md:px-4 md:py-2 rounded-xl text-base md:text-lg font-black flex items-center gap-1 shadow-lg">
+                    <span>📱</span> <span class="hidden sm:inline">QR Хэвлэх</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner & Navigation Tabs -->
+    <div class="bg-white border-b sticky top-[76px] md:top-[88px] z-30 shadow-md">
+        <!-- ЗӨВЛӨХ ПОЛИКЛИНИК Гарчиг -->
+        <div class="bg-blue-950 text-yellow-400 text-center py-2.5 px-4 border-b border-blue-800">
+            <h2 class="text-xl md:text-3xl font-black tracking-wider uppercase">🏥 ЗӨВЛӨХ ПОЛИКЛИНИК</h2>
+        </div>
+        
+        <div class="container mx-auto px-2 flex max-w-6xl">
+            <button onclick="switchTab('cards')" id="tab-cards" class="flex-1 py-4 font-black text-lg md:text-2xl text-blue-800 border-b-4 border-blue-800 text-center transition-all">
+                💬 <span data-translate="tab_cards">Харилцах Картууд</span>
+            </button>
+            <button onclick="switchTab('floors')" id="tab-floors" class="flex-1 py-4 font-black text-lg md:text-2xl text-gray-500 text-center transition-all">
+                🏢 <span data-translate="tab_floors">Давхрын Байршил</span>
+            </button>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-6 flex-grow max-w-6xl">
+
+        <!-- TAB 1: CARDS -->
+        <div id="view-cards" class="space-y-6">
+            <div>
+                <h2 class="text-base md:text-lg font-black text-gray-500 uppercase tracking-wider mb-4" data-translate="quick_phrases">Түгээмэл хэллэгүүд (Дэлгэцэнд харуулах)</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <button onclick="showDoctorRooms()" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-blue-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">👨‍⚕️</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c1">Эмчид үзүүлэх</span>
+                        <span class="block text-sm md:text-base text-blue-700 mt-2 font-bold">➔ Өрөөний дараалал харах</span>
+                    </button>
+                    <button onclick="showFullscreen('Шинжилгээ өгөх өрөө', '114 тоот: Сорьц цуглуулах өрөө (1-р давхарт)')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🧪</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c2">Шинжилгээ өгөх</span>
+                    </button>
+                    <button onclick="showFullscreen('💊 Эмийн сан', 'Гадна орох хаалганы хажууд байрлана.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">💊</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c3">Эмийн сан</span>
+                    </button>
+                    <button onclick="showFullscreen('💳 Касс / Төлбөр тооцоо', '1 тоот цахим ажилтан дээр хийнэ.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">💳</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c5">Касс / Төлбөр</span>
+                    </button>
+                    <button onclick="showFullscreen('🌐 Цахим үйлчилгээ', '1-р давхрын хүлээлгийн танхимд байрлана.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🌐</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block">Цахим үйлчилгээ</span>
+                    </button>
+                    <button onclick="showFullscreen('📋 Акт лист', '116 тоот: Дүн бүртгэл / Акт лист авах өрөө (1-р давхарт)')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">📋</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c6">Акт лист</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: ROOMS & FLOORS -->
+        <div id="view-floors" class="hidden space-y-5">
+            <div class="relative">
+                <input type="text" id="searchInput" onkeyup="filterRooms()" placeholder="Өрөөний дугаар эсвэл кабинетийн нэрээр хайх..." class="w-full p-4 pl-12 border-2 border-gray-300 rounded-2xl shadow-sm focus:ring-4 focus:ring-blue-300 focus:outline-none text-lg md:text-xl font-medium">
+                <span class="absolute left-4 top-4 text-2xl text-gray-400">🔍</span>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="showFloor(1)" id="btn-f1" class="flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-blue-800 text-white shadow-md transition">1-р давхар</button>
+                <button onclick="showFloor(2)" id="btn-f2" class="flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-gray-200 text-gray-700 transition">2-р давхар</button>
+            </div>
+
+            <div id="floor-1" class="space-y-3">
+                <h3 class="font-black text-xl md:text-2xl text-gray-800 border-b-2 pb-2">1-р давхрын өрөөнүүд</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="list-f1"></div>
+            </div>
+
+            <div id="floor-2" class="hidden space-y-3">
+                <h3 class="font-black text-xl md:text-2xl text-gray-800 border-b-2 pb-2">2-р давхрын өрөөнүүд</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="list-f2"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Fullscreen -->
+    <div id="cardModal" class="fixed inset-0 bg-black/95 z-50 hidden flex flex-col justify-between p-6 text-white text-center cursor-pointer">
+        <div class="flex justify-end">
+            <button onclick="closeModal()" class="text-3xl md:text-4xl bg-gray-800 hover:bg-gray-700 w-14 h-14 rounded-full flex items-center justify-center border-2 border-white">✕</button>
+        </div>
+        <div class="my-auto space-y-6 overflow-y-auto max-h-[80vh] p-2">
+            <h2 id="modalTitle" class="text-3xl md:text-6xl font-black text-yellow-400"></h2>
+            <div id="modalDesc" class="text-2xl md:text-4xl font-bold leading-relaxed text-slate-100"></div>
+        </div>
+        <p class="text-base md:text-lg text-gray-400 font-medium" data-translate="tap_to_close">Хаахын тулд дэлгэцийн хаана ч товшино уу</p>
+    </div>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center space-y-5 shadow-2xl">
+            <h3 class="font-black text-2xl text-gray-900" data-translate="qr_modal_title">Үүдний QR Код</h3>
+            <p class="text-sm text-gray-600 font-medium" data-translate="qr_modal_desc">Үйлчлүүлэгчдэд уншуулах QR кодыг хэвлэж наана уу.</p>
+            <div id="qrcode" class="flex justify-center p-3 border-2 rounded-2xl bg-white"></div>
+            <div class="flex gap-2">
+                <button onclick="window.print()" class="flex-1 bg-blue-800 text-white py-3 rounded-xl font-bold text-lg" data-translate="btn_print">🖨️ Хэвлэх</button>
+                <button onclick="closeQrModal()" class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-xl font-bold text-lg" data-translate="btn_close">Хаах</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const roomsData = {
+            1: [
+                { room: "1 тоот", title: "Төлбөр тооцоо (Цахим ажилтан)" },
+                { room: "Танхим", title: "Цахим үйлчилгээ (1-р давхрын хүлээлгийн танхим)" },
+                { room: "Үүд", title: "Эмийн сан (Гадна хаалганы хажууд)" },
+                { room: "101", title: "Нүд судлал" },
+                { room: "103", title: "Ходоодны дуран" },
+                { room: "104", title: "Боолт - 1" },
+                { room: "105", title: "Яаралтай түргэн тусламж" },
+                { room: "106", title: "Мэдрэл" },
+                { room: "107", title: "Дүрс оношилгооны эмч" },
+                { room: "108", title: "Рентген техникч" },
+                { room: "110", title: "Өдрийн эмчилгээ" },
+                { room: "111", title: "Гэмтэл" },
+                { room: "112", title: "Рентген зураг" },
+                { room: "113", title: "Рентген техникч" },
+                { room: "114", title: "Сорьц цуглуулах өрөө" },
+                { room: "115", title: "Поликлиникийн эрхлэгч" },
+                { room: "116", title: "Акт лист (Дүн бүртгэл)" }
+            ],
+            2: [
+                { room: "200", title: "Үзлэгийн бичгийн өрөө" },
+                { room: "201", title: "Эмэгтэйчүүд - (жирэмсэн)" },
+                { room: "202", title: "Уламжлалт" },
+                { room: "203", title: "Массаж" },
+                { room: "204", title: "Эмэгтэйчүүд" },
+                { room: "207", title: "Хүүхэд" },
+                { room: "208", title: "Эмэгтэйчүүд" },
+                { room: "209", title: "Эмэгтэйчүүд" },
+                { room: "210", title: "Эхо" },
+                { room: "211", title: "Тархины судасны хэт авиан оношилгоо / Тархины цахилгаан бичлэг" },
+                { room: "214", title: "Боолт - 2" },
+                { room: "215", title: "Жирэмсний дотор" },
+                { room: "216", title: "Зүрх судас" },
+                { room: "217", title: "Чих хамар хоолой" },
+                { room: "218", title: "Сэргээн засах" },
+                { room: "219", title: "Цайны өрөө" },
+                { room: "220", title: "Хүүхэд" },
+                { room: "221", title: "Хавдар" },
+                { room: "222", title: "Шүд - 2" },
+                { room: "223", title: "Арьс харшил" },
+                { room: "224", title: "Шүд - 1" },
+                { room: "225", title: "Зүрхний хэт авиан оношилгоо / Зүрхний Эхо" },
+                { room: "226", title: "Бөөр судлал" },
+                { room: "227", title: "Мэдрэл судлал" },
+                { room: "228", title: "Хоол боловсруулах" },
+                { room: "229", title: "Нөхөн засал" },
+                { room: "230", title: "Халдварт" }
+            ]
+        };
+
+        const translations = {
+            mn: {
+                title: "Баянзүрх Дүүргийн Эрүүл Мэндийн Төв",
+                subtitle: "Дуугүй Хөтөч & Навигатор",
+                tab_cards: "Харилцах Картууд",
+                tab_floors: "Давхрын Байршил",
+                quick_phrases: "Түгээмэл хэллэгүүд (Дэлгэцэнд харуулах)",
+                c1: "Эмчид үзүүлэх", c2: "Шинжилгээ өгөх", c3: "Эмийн сан", c5: "Касс / Төлбөр", c6: "Акт лист",
+                tap_to_close: "Хаахын тулд дэлгэцийн хаана ч товшино уу",
+                qr_modal_title: "Үүдний QR Код", qr_modal_desc: "Үйлчлүүлэгчдэд уншуулах QR кодыг хэвлэж наана уу.", btn_print: "🖨️ Хэвлэх", btn_close: "Хаах"
+            },
+            en: {
+                title: "Bayanzurkh District Health Center",
+                subtitle: "Silent Hospital Guide",
+                tab_cards: "Communication Cards",
+                tab_floors: "Floor Directory",
+                quick_phrases: "Quick Cards (Tap to Show)",
+                c1: "Doctor Appointment", c2: "Lab Test / Lab Room", c3: "Pharmacy", c5: "Cashier / Payment", c6: "Medical Leave / Sick Note",
+                tap_to_close: "Tap anywhere on screen to close",
+                qr_modal_title: "Entrance QR Code", qr_modal_desc: "Print and paste this QR code at the entrance.", btn_print: "🖨️ Print", btn_close: "Close"
+            }
+        };
+
+        let currentLang = 'mn';
+
+        function renderRooms() {
+            const containerF1 = document.getElementById('list-f1');
+            const containerF2 = document.getElementById('list-f2');
+            
+            containerF1.innerHTML = roomsData[1].map(r => `
+                <div class="bg-white p-4 md:p-5 rounded-2xl border-2 border-gray-200 flex justify-between items-center shadow-sm hover:border-blue-500">
+                    <span class="font-black text-blue-900 text-xl md:text-2xl bg-blue-50 px-3.5 py-1.5 rounded-xl border-2 border-blue-200 shrink-0">${r.room}</span>
+                    <span class="font-bold text-gray-800 text-lg md:text-xl text-right ml-2">${r.title}</span>
+                </div>
+            `).join('');
+
+            containerF2.innerHTML = roomsData[2].map(r => `
+                <div class="bg-white p-4 md:p-5 rounded-2xl border-2 border-gray-200 flex justify-between items-center shadow-sm hover:border-blue-500">
+                    <span class="font-black text-blue-900 text-xl md:text-2xl bg-blue-50 px-3.5 py-1.5 rounded-xl border-2 border-blue-200 shrink-0">${r.room}</span>
+                    <span class="font-bold text-gray-800 text-lg md:text-xl text-right ml-2">${r.title}</span>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(tab) {
+            if(tab === 'cards') {
+                document.getElementById('view-cards').classList.remove('hidden');
+                document.getElementById('view-floors').classList.add('hidden');
+                document.getElementById('tab-cards').className = "flex-1 py-4 font-black text-lg md:text-2xl text-blue-800 border-b-4 border-blue-800 text-center transition-all";
+                document.getElementById('tab-floors').className = "flex-1 py-4 font-black text-lg md:text-2xl text-gray-500 text-center transition-all";
+            } else {
+                document.getElementById('view-cards').classList.add('hidden');
+                document.getElementById('view-floors').classList.remove('hidden');
+                document.getElementById('tab-floors').className = "flex-1 py-4 font-black text-lg md:text-2xl text-blue-800 border-b-4 border-blue-800 text-center transition-all";
+                document.getElementById('tab-cards').className = "flex-1 py-4 font-black text-lg md:text-2xl text-gray-500 text-center transition-all";
+            }
+        }
+
+        function showFloor(floor) {
+            if(floor === 1) {
+                document.getElementById('floor-1').classList.remove('hidden');
+                document.getElementById('floor-2').classList.add('hidden');
+                document.getElementById('btn-f1').className = "flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-blue-800 text-white shadow-md transition";
+                document.getElementById('btn-f2').className = "flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-gray-200 text-gray-700 transition";
+            } else {
+                document.getElementById('floor-1').classList.add('hidden');
+                document.getElementById('floor-2').classList.remove('hidden');
+                document.getElementById('btn-f2').className = "flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-blue-800 text-white shadow-md transition";
+                document.getElementById('btn-f1').className = "flex-1 py-3.5 rounded-2xl font-black text-lg md:text-2xl bg-gray-200 text-gray-700 transition";
+            }
+        }
+
+        function showFullscreen(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerHTML = desc;
+            document.getElementById('cardModal').classList.remove('hidden');
+        }
+
+        function showDoctorRooms() {
+            let html = `
+                <div class="text-left space-y-5 max-w-2xl mx-auto">
+                    <div class="bg-blue-950 p-5 rounded-2xl border-2 border-blue-800 shadow-xl">
+                        <h4 class="text-yellow-400 font-black text-2xl md:text-3xl mb-3">📍 1-р давхар</h4>
+                        <div class="grid grid-cols-1 gap-2 text-lg md:text-xl font-bold">
+                            ${roomsData[1].map(r => `<div class="border-b border-blue-900/60 pb-1"><span class="text-yellow-300 font-black">${r.room}:</span> ${r.title}</div>`).join('')}
+                        </div>
+                    </div>
+                    <div class="bg-blue-950 p-5 rounded-2xl border-2 border-blue-800 shadow-xl">
+                        <h4 class="text-yellow-400 font-black text-2xl md:text-3xl mb-3">📍 2-р давхар</h4>
+                        <div class="grid grid-cols-1 gap-2 text-lg md:text-xl font-bold">
+                            ${roomsData[2].map(r => `<div class="border-b border-blue-900/60 pb-1"><span class="text-yellow-300 font-black">${r.room}:</span> ${r.title}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            showFullscreen("👨‍⚕️ Кабинет, өрөөний байршил", html);
+        }
+
+        function closeModal() { document.getElementById('cardModal').classList.add('hidden'); }
+        document.getElementById('cardModal').addEventListener('click', closeModal);
+
+        function filterRooms() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            [1, 2].forEach(f => {
+                const items = document.querySelectorAll(`#list-f${f} > div`);
+                items.forEach(el => {
+                    const text = el.innerText.toLowerCase();
+                    if(text.includes(q)) { el.classList.remove('hidden'); }
+                    else { el.classList.add('hidden'); }
+                });
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'mn' ? 'en' : 'mn';
+            document.getElementById('langBtn').innerText = currentLang === 'mn' ? 'EN' : 'MN';
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if(translations[currentLang][key]) { el.innerText = translations[currentLang][key]; }
+            });
+        }
+
+        function openQrModal() {
+            document.getElementById('qrModal').classList.remove('hidden');
+            document.getElementById('qrcode').innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 200, height: 200 });
+        }
+
+        function closeQrModal() { document.getElementById('qrModal').classList.add('hidden'); }
+
+        renderRooms();
+    </script>
+</body>
+</html>

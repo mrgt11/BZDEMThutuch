@@ -59,15 +59,39 @@
                         <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c1">Эмчид үзүүлэх</span>
                         <span class="block text-sm md:text-base text-blue-700 mt-2 font-bold">➔ Өрөөний дараалал харах</span>
                     </button>
-                    <button onclick="showFullscreen('Шинжилгээ өгөх өрөө', '114 тоот: Сорьц цуглуулах өрөө (1-р давхарт)')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                    
+                    <!-- Шээсний шинжилгээ -->
+                    <button onclick="showFullscreen('🧪 Шээсний шинжилгээ', '1-р давхар, 114 тоот: Сорьц цуглуулах өрөө')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
                         <span class="text-4xl md:text-5xl block mb-2">🧪</span>
-                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c2">Шинжилгээ өгөх</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block">Шээсний шинжилгээ</span>
+                        <span class="block text-sm text-blue-700 mt-1 font-bold">1-р давхар, 114 тоот</span>
                     </button>
-                    <!-- Сэтгэц*Дох/Бзхө товчлуур болон видео холболт -->
-                    <button onclick="showFullscreenWithVideo('🧠 Сэтгэц * Дох / БЗХӨ', 'Сэтгэц, Дох болон бэлгийн замын халдварт өвчний кабинет', 'doh.mp4')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+
+                    <!-- Цусны шижилгээ -->
+                    <button onclick="showFullscreen('🩸 Цусны шинжилгээ', '1-р давхар, 114 тоот: Сорьц цуглуулах өрөө')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🩸</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block">Цусны шинжилгээ</span>
+                        <span class="block text-sm text-blue-700 mt-1 font-bold">1-р давхар, 114 тоот</span>
+                    </button>
+
+                    <!-- Бактериологи -->
+                    <button onclick="showFullscreen('🧫 Бактериологи', 'Шинжилгээний кабинет')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🧫</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block">Бактериологи</span>
+                    </button>
+
+                    <!-- Мазок -->
+                    <button onclick="showFullscreen('🔬 Мазок шинжилгээ', 'Кабинет')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🔬</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block">Мазок</span>
+                    </button>
+
+                    <!-- Сэтгэц * Дох / БЗХӨ -->
+                    <button onclick="showFullscreenWithVideo('🧠 Сэтгэц * Дох / БЗХӨ', 'Сэтгэц, Дох болон бэлгийн замын халдварт өвчний кабинет', 'video_1.mp4')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
                         <span class="text-4xl md:text-5xl block mb-2">🧠</span>
                         <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c3">Сэтгэц*Дох/Бзхө</span>
                     </button>
+
                     <button onclick="showFullscreen('💳 Касс / Төлбөр тооцоо', '1 тоот цахим ажилтан дээр хийнэ.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
                         <span class="text-4xl md:text-5xl block mb-2">💳</span>
                         <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c5">Касс / Төлбөр</span>
@@ -114,7 +138,7 @@
         <div class="flex justify-end">
             <button onclick="closeModal()" class="text-3xl md:text-4xl bg-gray-800 hover:bg-gray-700 w-14 h-14 rounded-full flex items-center justify-center border-2 border-white">✕</button>
         </div>
-        <div class="my-auto space-y-6 overflow-y-auto max-h-[80vh] p-2">
+        <div class="my-auto space-y-6 overflow-y-auto max-h-[85vh] p-2">
             <h2 id="modalTitle" class="text-3xl md:text-6xl font-black text-yellow-400"></h2>
             <div id="modalDesc" class="text-2xl md:text-4xl font-bold leading-relaxed text-slate-100"></div>
         </div>
@@ -151,7 +175,7 @@
                 { room: "111", title: "Гэмтэл" },
                 { room: "112", title: "Рентген зураг" },
                 { room: "113", title: "Рентген техникч" },
-                { room: "114", title: "Сорьц цуглуулах өрөө" },
+                { room: "114", title: "Сорьц цуглуулах өрөө (Шээс, Цус)" },
                 { room: "115", title: "Поликлиникийн эрхлэгч" },
                 { room: "116", title: "Акт лист (Дүн бүртгэл)" }
             ],
@@ -193,7 +217,7 @@
                 tab_cards: "Харилцах Картууд",
                 tab_floors: "Давхрын Байршил",
                 quick_phrases: "Түгээмэл хэллэгүүд (Дэлгэцэнд харуулах)",
-                c1: "Эмчид үзүүлэх", c2: "Шинжилгээ өгөх", c3: "Сэтгэц*Дох/Бзхө", c5: "Касс / Төлбөр", c6: "Акт лист",
+                c1: "Эмчид үзүүлэх", c3: "Сэтгэц*Дох/Бзхө", c5: "Касс / Төлбөр", c6: "Акт лист",
                 tap_to_close: "Хаахын тулд дэлгэцийн хаана ч товшино уу",
                 qr_modal_title: "Үүдний QR Код", qr_modal_desc: "Үйлчлүүлэгчдэд уншуулах QR кодыг хэвлэж наана уу.", btn_print: "🖨️ Хэвлэх", btn_close: "Хаах"
             },
@@ -203,7 +227,7 @@
                 tab_cards: "Communication Cards",
                 tab_floors: "Floor Directory",
                 quick_phrases: "Quick Cards (Tap to Show)",
-                c1: "Doctor Appointment", c2: "Lab Test / Lab Room", c3: "Mental Health / STI", c5: "Cashier / Payment", c6: "Medical Leave / Sick Note",
+                c1: "Doctor Appointment", c3: "Mental Health / STI", c5: "Cashier / Payment", c6: "Medical Leave / Sick Note",
                 tap_to_close: "Tap anywhere on screen to close",
                 qr_modal_title: "Entrance QR Code", qr_modal_desc: "Print and paste this QR code at the entrance.", btn_print: "🖨️ Print", btn_close: "Close"
             }
@@ -268,7 +292,7 @@
             document.getElementById('modalTitle').innerText = title;
             let content = `<div class="mb-4">${desc}</div>`;
             if (videoUrl) {
-                content += `<div><video autoplay loop muted playsinline class="max-h-80 mx-auto rounded-2xl border-4 border-yellow-400 shadow-2xl"><source src="${videoUrl}" type="video/mp4">Таны хөтөч видеог дэмжихгүй байна.</video></div>`;
+                content += `<div><video autoplay loop muted playsinline class="w-full max-w-3xl max-h-[80vh] mx-auto rounded-2xl border-4 border-yellow-400 shadow-2xl object-contain"><source src="${videoUrl}" type="video/mp4">Таны хөтөч видеог дэмжихгүй байна.</video></div>`;
             }
             document.getElementById('modalDesc').innerHTML = content;
             document.getElementById('cardModal').classList.remove('hidden');
@@ -324,7 +348,7 @@
             new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 200, height: 200 });
         }
 
-        function closeQrModal() { document.getElementById('qrModal').classList.add('hidden');}
+        function closeQrModal() { document.getElementById('qrModal').classList.add('hidden'); }
 
         renderRooms();
     </script>

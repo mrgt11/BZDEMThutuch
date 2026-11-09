@@ -63,9 +63,10 @@
                         <span class="text-4xl md:text-5xl block mb-2">🧪</span>
                         <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c2">Шинжилгээ өгөх</span>
                     </button>
-                    <button onclick="showFullscreen('💊 Эмийн сан', 'Гадна орох хаалганы хажууд байрлана.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
-                        <span class="text-4xl md:text-5xl block mb-2">💊</span>
-                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c3">Эмийн сан</span>
+                    <!-- Сэтгэц*Дох/Бзхө товчлуур болон видео холболт -->
+                    <button onclick="showFullscreenWithVideo('🧠 Сэтгэц * Дох / БЗХӨ', 'Сэтгэц, Дох болон бэлгийн замын халдварт өвчний кабинет', 'video_1.mp4')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
+                        <span class="text-4xl md:text-5xl block mb-2">🧠</span>
+                        <span class="font-black text-xl md:text-2xl text-gray-900 block" data-translate="c3">Сэтгэц*Дох/Бзхө</span>
                     </button>
                     <button onclick="showFullscreen('💳 Касс / Төлбөр тооцоо', '1 тоот цахим ажилтан дээр хийнэ.')" class="bg-white p-5 md:p-6 rounded-2xl shadow-md border-2 border-gray-200 text-left hover:border-blue-600 hover:shadow-lg transition active:scale-95">
                         <span class="text-4xl md:text-5xl block mb-2">💳</span>
@@ -138,7 +139,7 @@
             1: [
                 { room: "1 тоот", title: "Төлбөр тооцоо (Цахим ажилтан)" },
                 { room: "Танхим", title: "Цахим үйлчилгээ (1-р давхрын хүлээлгийн танхим)" },
-                { room: "Үүд", title: "Эмийн сан (Гадна хаалганы хажууд)" },
+                { room: "Кабинет", title: "Сэтгэц * Дох / БЗХӨ" },
                 { room: "101", title: "Нүд судлал" },
                 { room: "103", title: "Ходоодны дуран" },
                 { room: "104", title: "Боолт - 1" },
@@ -192,7 +193,7 @@
                 tab_cards: "Харилцах Картууд",
                 tab_floors: "Давхрын Байршил",
                 quick_phrases: "Түгээмэл хэллэгүүд (Дэлгэцэнд харуулах)",
-                c1: "Эмчид үзүүлэх", c2: "Шинжилгээ өгөх", c3: "Эмийн сан", c5: "Касс / Төлбөр", c6: "Акт лист",
+                c1: "Эмчид үзүүлэх", c2: "Шинжилгээ өгөх", c3: "Сэтгэц*Дох/Бзхө", c5: "Касс / Төлбөр", c6: "Акт лист",
                 tap_to_close: "Хаахын тулд дэлгэцийн хаана ч товшино уу",
                 qr_modal_title: "Үүдний QR Код", qr_modal_desc: "Үйлчлүүлэгчдэд уншуулах QR кодыг хэвлэж наана уу.", btn_print: "🖨️ Хэвлэх", btn_close: "Хаах"
             },
@@ -202,7 +203,7 @@
                 tab_cards: "Communication Cards",
                 tab_floors: "Floor Directory",
                 quick_phrases: "Quick Cards (Tap to Show)",
-                c1: "Doctor Appointment", c2: "Lab Test / Lab Room", c3: "Pharmacy", c5: "Cashier / Payment", c6: "Medical Leave / Sick Note",
+                c1: "Doctor Appointment", c2: "Lab Test / Lab Room", c3: "Mental Health / STI", c5: "Cashier / Payment", c6: "Medical Leave / Sick Note",
                 tap_to_close: "Tap anywhere on screen to close",
                 qr_modal_title: "Entrance QR Code", qr_modal_desc: "Print and paste this QR code at the entrance.", btn_print: "🖨️ Print", btn_close: "Close"
             }
@@ -259,7 +260,17 @@
 
         function showFullscreen(title, desc) {
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerHTML = desc;
+            document.getElementById('modalDesc').innerHTML = `<div>${desc}</div>`;
+            document.getElementById('cardModal').classList.remove('hidden');
+        }
+
+        function showFullscreenWithVideo(title, desc, videoUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            let content = `<div class="mb-4">${desc}</div>`;
+            if (videoUrl) {
+                content += `<div><video autoplay loop muted playsinline class="max-h-72 mx-auto rounded-2xl border-4 border-yellow-400 shadow-2xl"><source src="${videoUrl}" type="video/mp4">Таны хөтөч видеог дэмжихгүй байна.</video></div>`;
+            }
+            document.getElementById('modalDesc').innerHTML = content;
             document.getElementById('cardModal').classList.remove('hidden');
         }
 
@@ -313,7 +324,7 @@
             new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 200, height: 200 });
         }
 
-        function closeQrModal() { document.getElementById('qrModal').classList.add('hidden'); }
+        function closeQrModal() { document.getElementById('qrModal').classList.add('hidden');}
 
         renderRooms();
     </script>
